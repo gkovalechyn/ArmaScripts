@@ -120,24 +120,6 @@ if ((count _this) > 7) then {
 private _spawnedGroups = [];
 private _totalSpawnedAI = 0; 
 
-private _getWeightedRandom = {
-	private _values = _this select 0;
-	private _weights = _this select 1;
-
-	private _result = _values select 0;
-	private _random = random 1;
-	private _total = 0;
-
-	for[{private _i = 0}, {_i < count _weights}, {_i = _i + 1}] do {
-		_total = _total + (_weights select _i);
-
-		if (_random < _total) exitWith {
-			_result = (_values select _i);
-		};
-	};
-};
-
-
 while {([_totalSpawnedAI] call _condition)} do {
 	private _aliveAICount = 0;
 	private _aliveGroups = [];
@@ -170,7 +152,7 @@ while {([_totalSpawnedAI] call _condition)} do {
 		};
 
 		if (_isSpawnSafe) then {
-			private _selectedGroup = [_groups, _weights] call _getWeightedRandom;
+			private _selectedGroup = [_groups, _weights] call GKO_fnc_getRandomWeighted;
 			private _spawnedGroup = [_spawnPosition, _side, _selectedGroup] call BIS_fnc_spawnGroup;
 			private _waypoint = objNull;
 
@@ -188,7 +170,7 @@ while {([_totalSpawnedAI] call _condition)} do {
 			_aliveAICount = _aliveAICount + (count units _spawnedGroup);
 			_totalSpawnedAI = _totalSpawnedAI + (count units _spawnedGroup);
 
-			if (!isNil _groupCallback) then {
+			if (!isNil "_groupCallback") then {
 				[_spawnedGroup, _waypoint] call _groupCallback;
 			};
 		}else{

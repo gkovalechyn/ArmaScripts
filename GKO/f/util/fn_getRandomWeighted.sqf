@@ -30,7 +30,7 @@ private _random = random 1;
 for "_i" from 0 to (count _items - 1) step 1 do {
 	_weightSum = _weightSum + (_weights select _i);
 
-	if (_weightSum < _random) exitWith {
+	if (_weightSum > _random) exitWith {
 		_val = (_items select _i);
 	};
 };
