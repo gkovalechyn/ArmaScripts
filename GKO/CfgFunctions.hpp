@@ -31,6 +31,8 @@ class GKO {
     class cwController {};
     class getRandomWeighted {};
     class playMusic {};
+
+    class showNotificationGlobal {};
   }
 
   class Effects {
