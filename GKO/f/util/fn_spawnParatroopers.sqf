@@ -72,6 +72,7 @@ _trigger setTriggerArea [TRIGGER_AREA_RADIUS, 200, _directionAngle, false];
 //Set the helicopter waypoints
 private _waypoint = _crewGroup addWaypoint [_dest, 0];
 _waypoint setWaypointSpeed "FULL";
+_waypoint setWaypointBehaviour "CARELESS";
 
 _direction = _direction vectorMultiply -200;
 private _waypoint2 = _crewGroup addWaypoint[(_dest vectorAdd _direction), 0];
