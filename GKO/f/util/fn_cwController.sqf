@@ -135,7 +135,7 @@ while {([_totalSpawnedAI] call _condition)} do {
 	} forEach _spawnedGroups;
 
 	while {(_aliveAICount < _maxAI) && (_retryCount < 3)} do {
-		private _spawnPosition = _spawnpoints select (floor random count _spawnpoints);
+		private _spawnPosition = selectRandom _spawnpoints;
 		private _isSpawnSafe = true;
 
 		if (_safeSpawnDistance > 0) then {
@@ -152,12 +152,12 @@ while {([_totalSpawnedAI] call _condition)} do {
 		};
 
 		if (_isSpawnSafe) then {
-			private _selectedGroup = [_groups, _weights] call GKO_fnc_getRandomWeighted;
+			private _selectedGroup = _groups selectRandomWeighted _weights;
 			private _spawnedGroup = [_spawnPosition, _side, _selectedGroup] call BIS_fnc_spawnGroup;
 			private _waypoint = objNull;
 
 			if ((count _attackPositions) > 0) then {
-				private _attackPosition = _attackPositions select (floor random count _attackPositions);
+				private _attackPosition = selectRandom _attackPositions;
 				_waypoint = _spawnedGroup addWaypoint [_attackPosition, 50];
 
 				_waypoint setWaypointType "SAD";
